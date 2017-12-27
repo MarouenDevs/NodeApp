@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/semantic/semantic.css" />
+    <title>TEST NODE</title>
+</head>
+<body style="background: #e3e3e3;">
+
+
+</div>
+<div class="ui main container">
+
+
+    <div class="ui secondary pointing menu">
+        <a class="item active">
+            Home
+        </a>
+        <a class="item">
+            Messages
+        </a>
+        <a class="item">
+            Friends
+        </a>
+        <div class="right menu">
+            <a class="ui item">
+                Logout
+            </a>
+        </div>
+    </div>
+    <div class="ui segment">
+        <h5>Ajouter une personne:</h5>
+
+        <% if (locals.error) {%>
+      <div class="ui ignored negative  message">
+
+          <%= error%>
+
+      </div>
+
+        <% } %>
+        <form class="ui form" method="post">
+            <div class="field">
+                <label>First Name</label>
+                <input type="text" name="first_name" placeholder="First Name">
+            </div>
+            <div class="field">
+                <label>Last Name</label>
+                <input type="text" name="last_name" placeholder="Last Name">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="E mail">
+            </div>
+
+            <button class="ui button" type="submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
