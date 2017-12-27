@@ -11,13 +11,24 @@ let server = http.createServer();
 
 let express = require('express');
 
-let sesssion = require('express-session');
+let session = require('express-session');
 
 let app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use("/assets", express.static('public'));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
+}));
+
+const Personne = require('./models/Personne');
+
+
+app.use(require('./midelwars/flash'));
 
 app.get('/', (req, res) => {
 
@@ -27,11 +38,18 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     if (req.body.first_name && req.body.last_name && req.body.email) {
 
-        res.render('page');
+        let personne = new Personne(req.body.first_name, req.body.last_name, req.body.email);
+        personne.save(function(result){
+            req.flash('success', 'Ajout success');
+            res.redirect('/');
+
+        });
+
 
     } else {
 
-        res.render('page', {'error': "Data not complet"});
+        req.flash('error', 'veuillez saisir tout les champs');
+        res.redirect('/');
 
     }
 

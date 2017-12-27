@@ -31,12 +31,21 @@
     <div class="ui segment">
         <h5>Ajouter une personne:</h5>
 
-        <% if (locals.error) {%>
+        <% if (locals.flash &&  locals.flash.error) {%>
       <div class="ui ignored negative  message">
 
-          <%= error%>
+          <%= locals.flash.error%>
 
       </div>
+
+        <% } %>
+
+        <% if (locals.flash &&  locals.flash.success) {%>
+        <div class="ui ignored positive  message">
+
+            <%= locals.flash.success%>
+
+        </div>
 
         <% } %>
         <form class="ui form" method="post">
