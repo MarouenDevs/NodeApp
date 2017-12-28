@@ -25,21 +25,31 @@ app.use(session({
     cookie: {secure: false}
 }));
 
-const Personne = require('./models/Personne');
+const PersonneModel = require('./models/Personne');
 
 
 app.use(require('./midelwars/flash'));
 
 app.get('/', (req, res) => {
 
-    res.render('page');
+    let userPromise = PersonneModel.all();
+
+    userPromise.then(function (personnes) {
+        res.render('page', {'personnes': personnes});
+    }).catch(function (err) {
+        console.log(err);
+        res.render('page');
+
+    })
+
+
 });
 
 app.post('/', (req, res) => {
     if (req.body.first_name && req.body.last_name && req.body.email) {
 
-        let personne = new Personne(req.body.first_name, req.body.last_name, req.body.email);
-        personne.save(function(result){
+        let personne = new PersonneModel(req.body.first_name, req.body.last_name, req.body.email);
+        personne.save(function (result) {
             req.flash('success', 'Ajout success');
             res.redirect('/');
 

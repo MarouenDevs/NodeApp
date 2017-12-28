@@ -1,21 +1,25 @@
+/**
+ *
+ * @type {Sequelize}
+ */
+const Sequelize = require('sequelize');
 
+const sequelize = new Sequelize('test', 'root', '', {
+    host: '127.0.0.1',
+    dialect: 'mysql',
 
-let mysql = require('mysql');
-
-
-let connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'root',
-    password : '',
-    database : 'test'
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    },
+    // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
+    operatorsAliases: false
 });
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log('connected as id ' + connection.threadId);
-});
 
-module.exports =  connection;
-
+module.exports.sequelize =  sequelize;
+module.exports.Sequelize = Sequelize;
 
 

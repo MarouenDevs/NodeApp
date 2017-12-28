@@ -1,6 +1,19 @@
+let sequelize = require('../core/db').sequelize;
+const Sequelize = require('../core/db').Sequelize;
 
+const Personne = sequelize.define('personne', {
+    firstname: Sequelize.STRING,
+    name: Sequelize.STRING,
+    email: Sequelize.STRING,
+}, {
+    timestamps: false,
+    tableName: 'personne'
+});
 
-class Personne {
+/**
+ *
+ */
+class PersonneModel {
 
 
     constructor(name, firstname, email) {
@@ -10,22 +23,33 @@ class Personne {
         this.email = email;
     }
 
-     save(cb) {
-        let db = require('../core/db');
-        let query = db.query('INSERT INTO personne SET ?', this, function (error, results, fields) {
-            if (error) throw error;
-            // else
-            cb(results);
+    save(cb) {
+
+        console.log(this);
+
+        Personne.create(this).then((persone) => {
+            cb(persone);
             console.log('saved!!!');
         });
-        db.end();
+
     }
 
     static all() {
+        return new Promise(
+            (resolve, reject) => {
 
+                Personne.findAll().then((personnes) => {
 
+                    resolve(personnes);
+
+                }).catch((err) => {
+
+                    reject(err);
+                });
+            });
     }
 
 }
 
-module.exports = Personne;
+
+module.exports = PersonneModel;

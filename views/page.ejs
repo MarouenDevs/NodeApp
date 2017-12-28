@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/assets/semantic/semantic.css" />
+    <link rel="stylesheet" href="/assets/semantic/semantic.css"/>
     <title>TEST NODE</title>
 </head>
 <body style="background: #e3e3e3;">
@@ -31,16 +31,16 @@
     <div class="ui segment">
         <h5>Ajouter une personne:</h5>
 
-        <% if (locals.flash &&  locals.flash.error) {%>
-      <div class="ui ignored negative  message">
+        <% if (locals.flash && locals.flash.error) {%>
+        <div class="ui ignored negative  message">
 
-          <%= locals.flash.error%>
+            <%= locals.flash.error%>
 
-      </div>
+        </div>
 
         <% } %>
 
-        <% if (locals.flash &&  locals.flash.success) {%>
+        <% if (locals.flash && locals.flash.success) {%>
         <div class="ui ignored positive  message">
 
             <%= locals.flash.success%>
@@ -64,6 +64,43 @@
 
             <button class="ui button" type="submit">Submit</button>
         </form>
+    </div>
+
+    <div class="ui segment">
+        <% if (locals.personnes) {%>
+
+        <table class="ui celled striped table">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    first name
+                </th>
+                <th>
+                    email
+                </th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <%locals.personnes.forEach(function(personne){ %>
+            <tr>
+                <td><%= personne.name%></td>
+                <td><%= personne.firstname%></td>
+                <td><%= personne.email%></td>
+            </tr>
+            <%});%>
+            </tbody>
+
+
+        </table>
+
+
+        <% } %>
     </div>
 
 </div>
